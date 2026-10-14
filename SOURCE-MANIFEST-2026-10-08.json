@@ -1,0 +1,712 @@
+{
+  "date": "2026-10-08",
+  "source": "C:\\Suba-Diving",
+  "gitHistory": false,
+  "files": [
+    {
+      "path": ".github/workflows/ci.yml",
+      "size": 558,
+      "sha256": "7b9cd21d43e763ce6a47d4f0b5f1fba475acb519d66e93bec1a6c084c948b65e"
+    },
+    {
+      "path": "app/activities/[slug]/page.tsx",
+      "size": 1545,
+      "sha256": "113f430f7b5a9efaba658f0d95442a589ae954eeb68696a43878bcf4f15f03de"
+    },
+    {
+      "path": "app/admin/login/page.tsx",
+      "size": 1232,
+      "sha256": "82ad85b1b85cdc19749ea7e16c59f5ce8ff9fc3e9307a4421acdc1ed6c223d12"
+    },
+    {
+      "path": "app/admin/page.tsx",
+      "size": 164,
+      "sha256": "9b60c6a9756426c4d6cab25301f2380283b8039a6cf76871462ec6f8c98ee4fb"
+    },
+    {
+      "path": "app/api/activities/route.ts",
+      "size": 591,
+      "sha256": "cbb189ab8a81ce5ae0aa1e67a366baebfd3d64b3ca40eaba1cc7088216a56d8d"
+    },
+    {
+      "path": "app/api/admin/bookings/[reference]/route.ts",
+      "size": 6779,
+      "sha256": "5758447329cf626cbcace28691980893c4d3d78f82a14398c3b5f4b676614ecb"
+    },
+    {
+      "path": "app/api/admin/enquiries/[id]/route.ts",
+      "size": 1162,
+      "sha256": "de2d3462c28d68ed2d200a6f26610b85f5f660e43a62d6528b52b34363617952"
+    },
+    {
+      "path": "app/api/admin/login/route.ts",
+      "size": 1373,
+      "sha256": "a098a116b1e30d4fbd8903bd03b1ff164fd56d655065e72f21e808b57867de04"
+    },
+    {
+      "path": "app/api/admin/logout/route.ts",
+      "size": 642,
+      "sha256": "4ba09ec42cdc6d099a66ddcf14ef7ec3bb6fdf764582480d4ad19b8c5c81acc5"
+    },
+    {
+      "path": "app/api/admin/notifications/route.ts",
+      "size": 1053,
+      "sha256": "6cdc31191fda52112c07ddacb1e984ea2353e23cda5ad4ba26ab627d328f3a93"
+    },
+    {
+      "path": "app/api/admin/overview/route.ts",
+      "size": 3924,
+      "sha256": "38529a183f2fd4cfd93b93b0bb3bd7d41e7d97a5612b5413747fb05ed20b9cb5"
+    },
+    {
+      "path": "app/api/admin/products/route.ts",
+      "size": 1799,
+      "sha256": "7c94d85475b314e7c90d1c0ac23610636dbf5bb00d0c50452e83441d57b8632b"
+    },
+    {
+      "path": "app/api/admin/settings/route.ts",
+      "size": 768,
+      "sha256": "2bcc99a900cdf38f245785f79844cef9ac4de0b806883fd37e678cb8e32d9700"
+    },
+    {
+      "path": "app/api/admin/slots/[id]/route.ts",
+      "size": 2055,
+      "sha256": "2077282c7c6a4efeff07020a007776ed52cf7aeeda9791921523946cfec65d91"
+    },
+    {
+      "path": "app/api/admin/slots/route.ts",
+      "size": 1299,
+      "sha256": "3d5d409beaf6f371e6e29d569dce975434be39a0b0a63bdbff5280750df5f7bd"
+    },
+    {
+      "path": "app/api/admin/staff/route.ts",
+      "size": 1833,
+      "sha256": "c66fc19731d3fe7c73f4db0f7b4cb04c84bfea6b0454da3b25c852ce331ca17e"
+    },
+    {
+      "path": "app/api/availability/route.ts",
+      "size": 1399,
+      "sha256": "263e6617b74e83278c781cd62683ec81c126eeff943877897e792580c1a10700"
+    },
+    {
+      "path": "app/api/bookings/[reference]/route.ts",
+      "size": 917,
+      "sha256": "d5a0e94c36362cb468a66a59503b6537811b5998d98a2b37430cb89171608e73"
+    },
+    {
+      "path": "app/api/bookings/recover/route.ts",
+      "size": 3075,
+      "sha256": "8e515d6fd56d98c5c4f8a7ff45eac2a4b73a6f844061d4f66f7ab189afe446c7"
+    },
+    {
+      "path": "app/api/bookings/route.ts",
+      "size": 1035,
+      "sha256": "bd438572cd52595c026fb2a7ed3b989d9e122ca68c907a244d4fed0593b8b4b5"
+    },
+    {
+      "path": "app/api/enquiries/route.ts",
+      "size": 1771,
+      "sha256": "ab06d258a73c0cd59695823216a0ff8d2ae0880f2376b2649f343101cbd9aae7"
+    },
+    {
+      "path": "app/api/internal/health/route.ts",
+      "size": 1217,
+      "sha256": "b1ba4e0b9a1dfaf08cf45b09edc67858f0a0112aa176c1f914a1441cbdee0676"
+    },
+    {
+      "path": "app/api/internal/notifications/route.ts",
+      "size": 535,
+      "sha256": "f2565c8327f8666568182c0b387b80d487a45470d90525ba243319795242143c"
+    },
+    {
+      "path": "app/api/internal/reconcile/route.ts",
+      "size": 517,
+      "sha256": "e946a73318bb1f8d212bab8bad160b0a010a56fb2c4f9a8ef968d9b40e691416"
+    },
+    {
+      "path": "app/api/payment/create-order/route.ts",
+      "size": 1993,
+      "sha256": "b6875f1c5d00f16218d29c10be5ba46d82bc672e39097dc3d5ff4d07b4e0d93a"
+    },
+    {
+      "path": "app/api/payment/verify-payment/route.ts",
+      "size": 1606,
+      "sha256": "3f35460825c155d8a87495db475c9d5fe57975a42e0c486846ade8887e705c97"
+    },
+    {
+      "path": "app/api/payment/webhook/route.ts",
+      "size": 2625,
+      "sha256": "4548ec07b850aa71b9aa71f6128ca277368baace2ee03d7e78f021415ea811a6"
+    },
+    {
+      "path": "app/book/page.tsx",
+      "size": 410,
+      "sha256": "090b59d55490aa30dcf747d95311cb785c679065ce862128176f7995b98a41c8"
+    },
+    {
+      "path": "app/booking/[reference]/page.tsx",
+      "size": 318,
+      "sha256": "f69c38af1744390c84d162ed23681f5c99a516ce9344ac5b5c8671d943223620"
+    },
+    {
+      "path": "app/policies/page.tsx",
+      "size": 775,
+      "sha256": "f2110ed02371d5e4d604178ef7e18f0b24de927455d0a88e605df9d0f8afb519"
+    },
+    {
+      "path": "app/recover/page.tsx",
+      "size": 1946,
+      "sha256": "d78c37af8a407921be423bfb223430a3cebc6c6a3e2423de41316ada8de42a58"
+    },
+    {
+      "path": "app/globals.css",
+      "size": 47592,
+      "sha256": "5f4e0bdcf1ff0424ec9bc2619fc7bacffe3231a4bfb415eb4e2b949c62a82bf0"
+    },
+    {
+      "path": "app/layout.tsx",
+      "size": 882,
+      "sha256": "ac9e46f1c82c0cbeda95351ad19363f740c5712cda871b68f6edc79296aa9d18"
+    },
+    {
+      "path": "app/page.tsx",
+      "size": 1495,
+      "sha256": "6ddddee657578dd7ddad4815c2170fb132bb48cafb0904fe72d5982c83104b6c"
+    },
+    {
+      "path": "components/AboutClub.tsx",
+      "size": 1792,
+      "sha256": "655869403891af0d15c7ef45d35c5be11fa01d3fb9baa267f1309e63594f675d"
+    },
+    {
+      "path": "components/BookingFlow.tsx",
+      "size": 8786,
+      "sha256": "622cf50e30cd3a74800cbc8f6cb38636b76af256ad84373e8c4faee0f501f497"
+    },
+    {
+      "path": "components/BookingStatus.tsx",
+      "size": 1933,
+      "sha256": "8f472de0e8c1bd6487972ba9d53a2f8e53ebf704b485da25283b5536f32b91e1"
+    },
+    {
+      "path": "components/Contact.tsx",
+      "size": 2066,
+      "sha256": "0633dd34e48a2e451711d9f67ffb36e9fe9133d9cf0ea1f7c4253cf24696b1c6"
+    },
+    {
+      "path": "components/DiveCourses.tsx",
+      "size": 2036,
+      "sha256": "e48cc00f2759e639b68fe3a5d14eb1e5ea44d43ce9074897f5f1384e623559b6"
+    },
+    {
+      "path": "components/DiveExperiences.tsx",
+      "size": 3500,
+      "sha256": "9661c34a394722818c8cee8eac2d48ae03586af39c8c64eb4e109f2feba8006e"
+    },
+    {
+      "path": "components/Footer.tsx",
+      "size": 898,
+      "sha256": "fc1ce171a6772e4affbe67c41a69b691d80e348781d1c93e9e0d803ccea5e512"
+    },
+    {
+      "path": "components/Gallery.tsx",
+      "size": 1269,
+      "sha256": "236a9a253c5e71aad8a22421899c914fc633222b5f251f929c802f74f87a407d"
+    },
+    {
+      "path": "components/Hero.tsx",
+      "size": 7190,
+      "sha256": "b259799602896a22838be31b8f52f727d1d639bc80855681d30ed9bb48eeb263"
+    },
+    {
+      "path": "components/HomeMotion.tsx",
+      "size": 3772,
+      "sha256": "0423ca4abdf3c1307e209607c8d14ce93b70d87d97070b24f67ce5c7e240a9b4"
+    },
+    {
+      "path": "components/Navbar.tsx",
+      "size": 1206,
+      "sha256": "d42453b0a5b7e246f8b3805340ac58d42f33836f65b0bceedd3d7b8b6b87062e"
+    },
+    {
+      "path": "components/OwnerControls.tsx",
+      "size": 7812,
+      "sha256": "bfe3c8c15514daaf24f38f64bce64398196e812f10f09b0ef66625b80ff97efc"
+    },
+    {
+      "path": "components/StaffDashboard.tsx",
+      "size": 14549,
+      "sha256": "da92cf5fd9d7101f69e57f1c2d7517b4e1f7baf7656ad355143d0c5c56b5e68d"
+    },
+    {
+      "path": "components/TravelPromotion.tsx",
+      "size": 3514,
+      "sha256": "951f72edc8a499a0123697db33a699550b787578f42d50a76ec2a1468698f105"
+    },
+    {
+      "path": "components/WhatsApp.tsx",
+      "size": 366,
+      "sha256": "fb46894b8d254d3336b07d4119c60570b767de8ec3982b5015d2de2a6086a740"
+    },
+    {
+      "path": "docs/handover/BROCHURE-REBUILD.md",
+      "size": 4955,
+      "sha256": "aa07dcc37b21b29b194ba8b5416924b0d4901c4e86d68cc4ca47d069c02480c9"
+    },
+    {
+      "path": "docs/handover/CLUB-REQUIREMENTS.md",
+      "size": 3317,
+      "sha256": "777180d3e9512b5e2cd221ecef4c9b82caea8f4aecb24b6c9522404d30fe9ca8"
+    },
+    {
+      "path": "docs/handover/FRONTEND-UPDATE.md",
+      "size": 1733,
+      "sha256": "934d29a17e76bd7ad9e68675f6553cc52c25a30f136f7815e7c5794ccc46655a"
+    },
+    {
+      "path": "docs/handover/IMPLEMENTATION-STATUS.md",
+      "size": 7761,
+      "sha256": "0f77be2833a23c6a4d3f187a07656c8f4f6a32ce73e5404e7a3bb41a4e7fb512"
+    },
+    {
+      "path": "docs/handover/LAUNCH-AUDIT.md",
+      "size": 7715,
+      "sha256": "96107562e16529a9c94d00c6d540abe84308388dc9f4e9cdba9b041f5e2230ef"
+    },
+    {
+      "path": "docs/handover/LAUNCH-CHECKLIST.md",
+      "size": 4929,
+      "sha256": "d090f9e3003f596d6d4e3563a37b2c5e9104c6bcbaa84bc1694f6585f67984bd"
+    },
+    {
+      "path": "docs/handover/MOTION-PLAN.md",
+      "size": 4241,
+      "sha256": "2d5bb25543e8f07f7bb063cdb53424f1dc437427b99356e9ad3ed7880a4f92fa"
+    },
+    {
+      "path": "docs/handover/OWNER-GUIDE.md",
+      "size": 6343,
+      "sha256": "a54b95edffa403abd669574f66ef8bc97160db6d2cbd78133c9d743ef4ce82bc"
+    },
+    {
+      "path": "docs/handover/README.md",
+      "size": 1609,
+      "sha256": "29408165fd96839badcd38d1a6a6f3d6a8dc55b0c4ba5315d8461f75f98af88c"
+    },
+    {
+      "path": "docs/handover/STAFF-GUIDE.md",
+      "size": 6008,
+      "sha256": "f8b5c203faf23f10cd92190daac89991a16c1a35df5df08bd537461764721c25"
+    },
+    {
+      "path": "lib/api.ts",
+      "size": 1971,
+      "sha256": "d33bae5389e6a006bb8a202c1984ea32a5917d0a14da099fe315ebef5b00c3b9"
+    },
+    {
+      "path": "lib/auth.ts",
+      "size": 1285,
+      "sha256": "34c26b120d60015ba2426696b98948573403eefa9a65334bca09695d39ffad9e"
+    },
+    {
+      "path": "lib/booking.ts",
+      "size": 5191,
+      "sha256": "2be6433fc7e03ddc7e0d90a0c7937be079315574d2495d9edcae0ca790154ac1"
+    },
+    {
+      "path": "lib/catalog.ts",
+      "size": 846,
+      "sha256": "5fd8146c2cd099f76fbe4de213a00b9cfe866012e80f0a1c3aee4d249a4688d4"
+    },
+    {
+      "path": "lib/db.ts",
+      "size": 2429,
+      "sha256": "437fb9e76a49cd995f595a1d4b48b88278b205a60b1bf7c031770f2a1660756a"
+    },
+    {
+      "path": "lib/email.ts",
+      "size": 4670,
+      "sha256": "ddb9f22d14513e75ea7c4bae18d4fba20270f468dd3def180af0a227a183037f"
+    },
+    {
+      "path": "lib/india-time.ts",
+      "size": 499,
+      "sha256": "1d9414991183f6e6876a0272b67f6de4b98215af9f9ec08215764ba126dd6511"
+    },
+    {
+      "path": "lib/motion.ts",
+      "size": 1501,
+      "sha256": "c1e03c6a8fe167fce5f33a1a58eb893ae4a14501e8cf74192988021e80ce6348"
+    },
+    {
+      "path": "lib/payment.ts",
+      "size": 6281,
+      "sha256": "e23af3f977498733f0aa1deae50e3888d4c5230c3f2025381abbffc966fe00ad"
+    },
+    {
+      "path": "lib/products.ts",
+      "size": 742,
+      "sha256": "f42659d13b966112469cad9fb60df595faf17477404e13d14ccad9c1d1275055"
+    },
+    {
+      "path": "lib/public-catalog.ts",
+      "size": 717,
+      "sha256": "ff7b76f309f3b5f53ea0699540a506f04eecc77ae85d07a66f9b1179aae9d1c5"
+    },
+    {
+      "path": "lib/rate-limit.ts",
+      "size": 783,
+      "sha256": "3cee6cb53746fadda3d17cfa27d1ed98202cd58e4d6a4c2710f184d6457ac26f"
+    },
+    {
+      "path": "lib/reconcile.ts",
+      "size": 2133,
+      "sha256": "f75a0cd35d1bbef4519aa6d0e2e4164421dc991efcc26c458dfbd614ba2d863e"
+    },
+    {
+      "path": "lib/settings.ts",
+      "size": 2752,
+      "sha256": "2406ad603eaaeec9402886f6c5c5e9a42da1c2496360adb65b5ee5a63e10584e"
+    },
+    {
+      "path": "lib/utils.ts",
+      "size": 247,
+      "sha256": "8ddcc9715f988765d26ba6c9d906483fd9551af9ae8ee4ed0966aab5e504bf48"
+    },
+    {
+      "path": "public/brochure/boat-dive-promotion.png",
+      "size": 842077,
+      "sha256": "7ab9c628a25f35629c616b3c104a7b2c6e799b495f35ce1115dc21aef0fc38b1"
+    },
+    {
+      "path": "public/brochure/club-identity.png",
+      "size": 386507,
+      "sha256": "77212c4bf8c36307b7deab28cc193f0a248339596aebb9b3047c1a898146835b"
+    },
+    {
+      "path": "public/brochure/club-logo-transparent.png",
+      "size": 1140967,
+      "sha256": "1550cf7a0b661f3a5eafbf15b1977bc7a22d566d73fd6ebdb151cd991e62924d"
+    },
+    {
+      "path": "public/brochure/Havelock_Dive_Club_Brochure.pptx",
+      "size": 3241110,
+      "sha256": "8eb0b1fa39830bf1247d560011455f0cc44b97753389adecc50f47982af7abf7"
+    },
+    {
+      "path": "public/brochure/kk-coastal-scene.png",
+      "size": 2732692,
+      "sha256": "ecec19e30511abac35e38f90d8400f73359c1d343a2c9297a6cc6d87d6880d2d"
+    },
+    {
+      "path": "public/brochure/padi-reference.png",
+      "size": 236300,
+      "sha256": "6dd3e6b34ee0278d66b801cd6d0961b4b9aab785137b2161092c5162ca3ee8be"
+    },
+    {
+      "path": "public/brochure/scuba-promotion.png",
+      "size": 945218,
+      "sha256": "58606b187c6ba145da65cd44e931072a47e8447d7a32dae1404644dc12c32289"
+    },
+    {
+      "path": "public/brochure/ssi-reference.png",
+      "size": 94402,
+      "sha256": "26d425d106b60782cfc8b95c7bbd457ce01f1538b7744f9bd51cb3f228d422ac"
+    },
+    {
+      "path": "public/brochure/travel-reference.png",
+      "size": 702224,
+      "sha256": "0a0704b47213ed5cd3b240074e92b2ab8cbe0c1317d1e55f029e430e85d16472"
+    },
+    {
+      "path": "public/images/activities1.jpg",
+      "size": 62679,
+      "sha256": "469155be998c320e805cbfa9fb3b785e820b175ef84b9608ad62c487cee12c58"
+    },
+    {
+      "path": "public/images/activities2.jpg",
+      "size": 48331,
+      "sha256": "673d0cddb913dc703badad4829b9a20942f49d3bb19446de5397bef494429511"
+    },
+    {
+      "path": "public/images/brochure.pdf",
+      "size": 2239366,
+      "sha256": "121a027db7bfa12ac622191e76f7b7b17309843b1d827fafb1dcbddfefc2e5a8"
+    },
+    {
+      "path": "public/images/club-logo.jpg",
+      "size": 70035,
+      "sha256": "3c041c212041238b8ad0d12e1a088337b2496c7433c5b5f23abd77de41d8fcab"
+    },
+    {
+      "path": "public/images/download.jpg",
+      "size": 182912,
+      "sha256": "4707b00883ed6d9ee7a6ab83370d0a4f16f174e51a3d72017a29d90f55fd222b"
+    },
+    {
+      "path": "public/images/gallery1.jpg",
+      "size": 210831,
+      "sha256": "1e9efab9ab9e8de248e14a93beb7a9dbffac7892f19d03e7d273b8c7818b7e30"
+    },
+    {
+      "path": "public/images/gallery2.jpg",
+      "size": 70035,
+      "sha256": "3c041c212041238b8ad0d12e1a088337b2496c7433c5b5f23abd77de41d8fcab"
+    },
+    {
+      "path": "public/images/gallery3.jpg",
+      "size": 85299,
+      "sha256": "11a71042549923d39e7c8e706da21af16d6a1f9fada05e1498ed77a4e7e81060"
+    },
+    {
+      "path": "public/images/gallery4.jpg",
+      "size": 201681,
+      "sha256": "365bbae7808d81c331fe433d905668f7f285c18f8d35432116976f17d7ebda6c"
+    },
+    {
+      "path": "public/images/gallery5.jpg",
+      "size": 78361,
+      "sha256": "4dbf433ce11799307b3f64460c61ae575a6266d93466b04ebbadfc434cbee307"
+    },
+    {
+      "path": "public/images/gallery6.jpg",
+      "size": 113477,
+      "sha256": "0a999541120ce2c96bfa9bc21e0a217ec12108d853338f439c045ebf8a630502"
+    },
+    {
+      "path": "public/images/Havelock_Dive_Club_Brochure.pdf",
+      "size": 2239366,
+      "sha256": "121a027db7bfa12ac622191e76f7b7b17309843b1d827fafb1dcbddfefc2e5a8"
+    },
+    {
+      "path": "public/images/hero1.jpg",
+      "size": 197497,
+      "sha256": "527d227c5a511d388a32756cd84052b4914183e67a03fc55e5cd6b9b13a904cc"
+    },
+    {
+      "path": "public/images/stats-bg.jpg",
+      "size": 74713,
+      "sha256": "db7f798c7f64462d07300cdafbdc07b35a3392fef6cdbb9b2e0f52a2b1902044"
+    },
+    {
+      "path": "public/videos/hero-video.mp4",
+      "size": 1066212,
+      "sha256": "62a97ed089e1d6d98ef9435bbb1190043ab348ef1c2ab87e4af4f732b99912ee"
+    },
+    {
+      "path": "references/previous-hero-reference.mp4",
+      "size": 41926135,
+      "sha256": "a5b6992decb3e7900902854832cfc25e36717341e16a9968da532ab2f3e6d794"
+    },
+    {
+      "path": "scripts/backup-verify.mjs",
+      "size": 2966,
+      "sha256": "019b23fb5312ecdd4db36899f306150f22c7656750fe899193e601769f49c6de"
+    },
+    {
+      "path": "scripts/provision-staff.mjs",
+      "size": 1288,
+      "sha256": "9bf25fc25292bd8861a9f3a81424abb5b8d9cf2c9dd665dc2e461404f2279004"
+    },
+    {
+      "path": "scripts/setup-local-owner.mjs",
+      "size": 1686,
+      "sha256": "6db3e21f62962890e039e7da978d31252809e79f75a3ce9a41ebddd886a57270"
+    },
+    {
+      "path": "scripts/start-local-db.mjs",
+      "size": 964,
+      "sha256": "109a65a7472f09a365ab70dc45cd5ca4dc79b614fe676a9f05cc3442f0439937"
+    },
+    {
+      "path": "tests/e2e/api.spec.ts",
+      "size": 998,
+      "sha256": "2b29d190e087660a33de0ba6c1409e79f94f1cd73fab8346893eff0c9f4500da"
+    },
+    {
+      "path": "tests/e2e/checkout.spec.ts",
+      "size": 2593,
+      "sha256": "adac52ec26e219f7ca2144dcd91e90d2a4438152df263617b4d55df9b7e2ad70"
+    },
+    {
+      "path": "tests/e2e/navigation.spec.ts",
+      "size": 793,
+      "sha256": "5df7ea7e9856ee6e6728dcfb2e24d9c769b4e7ca5d226e644692ea712c0a2b30"
+    },
+    {
+      "path": "tests/booking-retry.test.ts",
+      "size": 1901,
+      "sha256": "424494c6fdfd8d7d690f327073cd2f9a3b8b5fb0d4f47916a77b4e33f924275a"
+    },
+    {
+      "path": "tests/india-time.test.ts",
+      "size": 728,
+      "sha256": "ce2b78ad5a25954dc4d9fbcf8ef8ed1669e72b3b49c8971869e4c61fb2fcfe83"
+    },
+    {
+      "path": "tests/management.test.ts",
+      "size": 14358,
+      "sha256": "8d04217f305f03580bc95123a05026ab969501304764bfb70b0ed97e17489503"
+    },
+    {
+      "path": "tests/payment.test.ts",
+      "size": 1775,
+      "sha256": "53897b75fca7c682f70571e2478332fad2ad22a1bc91c580dab884b97d416f38"
+    },
+    {
+      "path": "tests/reservation.test.ts",
+      "size": 8023,
+      "sha256": "eb4a996a9857a288877932d964fcf632ac60fbf166e791379155c10d22ceed52"
+    },
+    {
+      "path": ".env.example",
+      "size": 526,
+      "sha256": "8386f0f19d4def34e278d850d754838ca2cbb5406af4bbe22972f9527ab42b3a"
+    },
+    {
+      "path": ".gitattributes",
+      "size": 66,
+      "sha256": "1a1dbe176bc233b499d35a57db7513f2941c99ab9759f177830c9149be99005b"
+    },
+    {
+      "path": ".gitignore",
+      "size": 716,
+      "sha256": "83f6c853ec688e08ba9c1ce439958fa8f7712c0567ae6e4cfbdc638f76d35d7c"
+    },
+    {
+      "path": "ADVANCED_SETUP.md",
+      "size": 9521,
+      "sha256": "e621bd3d16b01db84ff01e9af5c5a9693714a7a391fe59380864ef30900ac64b"
+    },
+    {
+      "path": "AGENTS.md",
+      "size": 678,
+      "sha256": "63f2c50380ed6303237cce215ce27af1d620d094c215e28d1b1538a3c070e3bb"
+    },
+    {
+      "path": "CHECKSUMS.sha256",
+      "size": 8413,
+      "sha256": "2f75230bd9e3b09d532c0492f10c87481b0f43fb37480c3e9b83f1b078814114"
+    },
+    {
+      "path": "CLAUDE.md",
+      "size": 11,
+      "sha256": "336cc4fbf19beaada7ccf9986414fa91851a8d7a07dfb3ccbe800a69eed0ab49"
+    },
+    {
+      "path": "COMPLETION_CHECKLIST.md",
+      "size": 10255,
+      "sha256": "cc0f0537cd842eefd5b348b41c26cdbdada81017bdb0652e2550a70e7262580a"
+    },
+    {
+      "path": "eslint.config.mjs",
+      "size": 399,
+      "sha256": "f5ba461f1053e1b3157126fbdcdd61a422b21800278b4d37f014c0b227d98570"
+    },
+    {
+      "path": "GITHUB_PUSH_GUIDE.md",
+      "size": 12514,
+      "sha256": "1f31ece0acb4aa1e5e9d1ca8551a916755bf62725119b295a71263a7baadaacf"
+    },
+    {
+      "path": "LAPTOP-SETUP.md",
+      "size": 2008,
+      "sha256": "4e192299b50b5deab93bb00c3c11beb544f8896aa3dfcf0dc38cfa4bf37b0747"
+    },
+    {
+      "path": "LICENSE",
+      "size": 11524,
+      "sha256": "17de84ce8b605a18699d04d6d9371da2aacc0e2af58f2128e87f75e6d190f901"
+    },
+    {
+      "path": "MASTER_INDEX.md",
+      "size": 12211,
+      "sha256": "2f339ceb66d94f87e890ffce83f6b4821bc2d2b152e748a1ae77af11dee2d622"
+    },
+    {
+      "path": "next.config.js",
+      "size": 129,
+      "sha256": "dfaa981814cfbd0affb124ecc93e9c1dc954566caf8e719e4089c49ad8bdd68f"
+    },
+    {
+      "path": "package-lock.json",
+      "size": 295805,
+      "sha256": "a7155666b0f67320665b5bd26a05e645d708ef2cdd297b5fe16e1f347603a938"
+    },
+    {
+      "path": "package.json",
+      "size": 1113,
+      "sha256": "999ef2e42a56e7c0b4bb5a3ee1ea71221cb2b5ead55793bdb1b0082c5bb8e965"
+    },
+    {
+      "path": "playwright.config.ts",
+      "size": 462,
+      "sha256": "1fa7526ef91ee327d23bb6d3348d5d4fe85d23abc4ba62c4067b81dc3751d535"
+    },
+    {
+      "path": "postcss.config.js",
+      "size": 147,
+      "sha256": "f04a3e79f9afb09405bf2d9366f17048cdf70a892cf4115e1b1311d6195293f0"
+    },
+    {
+      "path": "PROJECT_SUMMARY.md",
+      "size": 9680,
+      "sha256": "b426f28281d6ba15b542e707861f0180a7c99b11fec3dc84e1ce00d12348dbed"
+    },
+    {
+      "path": "PUSH_TO_GITHUB.txt",
+      "size": 5546,
+      "sha256": "395c9b172681571eb6a7be41020d027c3f1893ae5c9e19571c365427f4a62c6b"
+    },
+    {
+      "path": "QUICK_START.md",
+      "size": 5634,
+      "sha256": "2093d3615e3f9341fd60df625d9bf6596c5df92e3f70c069f301e4c650ee90b1"
+    },
+    {
+      "path": "README.md",
+      "size": 3386,
+      "sha256": "b3be0e97277551e661c5e4a7ad6ac5592238995d1ac64688d6331463da886edb"
+    },
+    {
+      "path": "START_HERE.md",
+      "size": 9746,
+      "sha256": "6dbb8f950e1000e8b5b3c3708995aa49816307ed838c94921487f3b047952938"
+    },
+    {
+      "path": "START-ON-NEW-LAPTOP.md",
+      "size": 6213,
+      "sha256": "5cf349b3cafa024239e3580b4307407fc26706c64142ace0ef75a96895f31a12"
+    },
+    {
+      "path": "Start-Project.ps1",
+      "size": 1747,
+      "sha256": "8d1f1f0ce4b245bf15885608f1d17fd7907014f2ebb737c3543f6089140d8848"
+    },
+    {
+      "path": "tailwind.config.js",
+      "size": 662,
+      "sha256": "a832eba18c6484733cf990c16a952b7acd19b668f2c922ccfc616657ddab675f"
+    },
+    {
+      "path": "TRANSFER-MANIFEST.json",
+      "size": 17060,
+      "sha256": "bcf6175b3c3c781f26ec78e9981a03c70c1931a2be6c8b2d83da84eefb176271"
+    },
+    {
+      "path": "TRANSFER-VALIDATION.md",
+      "size": 1645,
+      "sha256": "df9697835b4db0f98f1c18b9653fa2c97aebb2b8c01ab3a3396c5a3d239d66f4"
+    },
+    {
+      "path": "tsconfig.json",
+      "size": 699,
+      "sha256": "54f592ec1598dcf250c69e42f9682f32f7e0a1278c37e95b9e0714f5e0b469b6"
+    },
+    {
+      "path": "vitest.config.mts",
+      "size": 365,
+      "sha256": "682f3fd23f6fbfbdee5b2c8cd197db330bf2fbafc48f45d19c22abf6ce2bfa28"
+    }
+  ]
+}
