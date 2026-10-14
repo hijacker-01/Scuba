@@ -21,7 +21,17 @@ export async function parse<T>(request: Request, schema: ZodType<T>, maxSize = 1
 }
 export function sameOrigin(request: Request) {
   const origin = request.headers.get('origin');
-  if (origin && new URL(origin).host !== new URL(request.url).host) throw new ApiError(403, 'ORIGIN', 'Invalid origin');
+  if (!origin) return;
+
+  let allowed = false;
+  try {
+    const expected = process.env.APP_URL || request.url;
+    allowed = new URL(origin).origin === new URL(expected).origin;
+  } catch {}
+
+  if (!allowed) {
+    throw new ApiError(403, 'ORIGIN', 'Invalid origin');
+  }
 }
 export function requireConfigured(...names: string[]) {
   if (names.some(n => !process.env[n] || /placeholder|xxxxx|your_|replace/i.test(process.env[n]!))) throw new ApiError(503, 'NOT_CONFIGURED', 'Checkout is not configured');
