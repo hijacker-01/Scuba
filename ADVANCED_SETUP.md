@@ -1,3 +1,5 @@
+> Historical guide: this predates the current booking implementation. Use [README.md](README.md) for setup, routes, tests, and launch requirements.
+
 # 🗄️ Advanced Setup Guide - Database & Email Integration
 
 ## Part 1: MongoDB Setup (Database)

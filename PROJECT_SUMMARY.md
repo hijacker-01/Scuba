@@ -1,3 +1,5 @@
+> Historical guide: this predates the current booking implementation. Use [README.md](README.md) for setup, routes, tests, and launch requirements.
+
 # 🌊 Havelock Dive Club Website - Project Summary
 
 ## 📋 Project Overview

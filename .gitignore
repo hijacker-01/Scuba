@@ -68,6 +68,9 @@ logs
 # Test
 coverage/
 .nyc_output
+test-results/
+playwright-report/
+.codex/local/
 
 # Next.js
 .next/

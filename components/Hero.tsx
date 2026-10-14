@@ -1,167 +1,162 @@
 'use client';
 
-import { useRef, useState, useCallback, useEffect } from 'react';
-import { Canvas, extend, useFrame } from '@react-three/fiber';
-import { useVideoTexture, shaderMaterial } from '@react-three/drei';
-import * as THREE from 'three';
+import { useEffect, useRef } from 'react';
 
-const FullScreenRippleShader = shaderMaterial(
-  {
-    uTime: 0,
-    uVideoTexture: null,
-    uMouse: new THREE.Vector2(0.5, 0.5),
-    uRippleStartTime: -10.0,
-    uAspect: 16.0 / 9.0,
-    uStrength: 0.05,
-  },
-  `
-    varying vec2 vUv;
-    void main() {
-      vUv = uv;
-      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-    }
-  `,
-  `
-    uniform float uTime;
-    uniform sampler2D uVideoTexture;
-    uniform vec2 uMouse;
-    uniform float uRippleStartTime;
-    uniform float uAspect;
-    uniform float uStrength;
-    varying vec2 vUv;
+type Ripple = { x: number; y: number; born: number; strength: number };
 
-    void main() {
-      vec2 st = vUv;
-      st.x *= uAspect;
+export default function Hero({ line1 = 'Dive into', line2 = 'another world.', description = 'Explore the Andaman Islands with Havelock Dive Club. Professional diving experiences for beginners and certified divers, in the waters we’ve called home since 2017.', location = 'Havelock Island · Andaman Sea' }: { line1?: string; line2?: string; description?: string; location?: string }) {
+  const heroRef = useRef<HTMLElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
-      vec2 mouse = uMouse;
-      mouse.x *= uAspect;
+  useEffect(() => {
+    const hero = heroRef.current;
+    const canvas = canvasRef.current;
+    if (!hero || !canvas) return;
+    const context = canvas.getContext('2d');
+    if (!context) return;
 
-      float dist = distance(st, mouse);
+    const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const ripples: Ripple[] = [];
+    let width = 0;
+    let height = 0;
+    let frame = 0;
+    let lastMove = 0;
+    let visible = true;
 
-      float elapsed = uTime - uRippleStartTime;
+    const resize = () => {
+      const bounds = hero.getBoundingClientRect();
+      const ratio = Math.min(window.devicePixelRatio || 1, 2);
+      width = bounds.width;
+      height = bounds.height;
+      canvas.width = Math.round(width * ratio);
+      canvas.height = Math.round(height * ratio);
+      context.setTransform(ratio, 0, 0, ratio, 0, 0);
+    };
 
-      float wavefront = elapsed * 1.8;
-
-      float maxDist = length(vec2(uAspect, 1.0));
-
-      float wave = 0.0;
-
-      if (wavefront > 0.0 && wavefront < maxDist * 1.5) {
-        float ringWidth = 0.35;
-        float innerEdge = wavefront - ringWidth;
-
-        if (dist > innerEdge && dist < wavefront) {
-          float factor = smoothstep(innerEdge, wavefront - (ringWidth * 0.5), dist) *
-                         smoothstep(wavefront, wavefront - (ringWidth * 0.5), dist);
-
-          float lifetimeFade = clamp(1.0 - (elapsed / 2.0), 0.0, 1.0);
-
-          wave = sin((dist - wavefront) * 35.0) * uStrength * factor * lifetimeFade;
+    const draw = (now: number) => {
+      context.clearRect(0, 0, width, height);
+      context.globalCompositeOperation = 'screen';
+      for (let i = ripples.length - 1; i >= 0; i--) {
+        const ripple = ripples[i];
+        const progress = (now - ripple.born) / 1700;
+        if (progress >= 1) {
+          ripples.splice(i, 1);
+          continue;
+        }
+        const radius = 18 + progress * Math.min(width * 0.21, 210) * ripple.strength;
+        const opacity = (1 - progress) ** 2 * 0.45 * ripple.strength;
+        const glow = context.createRadialGradient(ripple.x, ripple.y, Math.max(0, radius - 24), ripple.x, ripple.y, radius + 30);
+        glow.addColorStop(0, 'rgba(94, 218, 237, 0)');
+        glow.addColorStop(0.54, `rgba(76, 208, 228, ${opacity * 0.3})`);
+        glow.addColorStop(1, 'rgba(94, 218, 237, 0)');
+        context.fillStyle = glow;
+        context.beginPath();
+        context.arc(ripple.x, ripple.y, radius + 30, 0, Math.PI * 2);
+        context.fill();
+        for (let ring = 0; ring < 3; ring++) {
+          context.beginPath();
+          context.arc(ripple.x, ripple.y, Math.max(1, radius - ring * 13), 0, Math.PI * 2);
+          context.strokeStyle = `rgba(175, 245, 255, ${opacity * (0.9 - ring * 0.23)})`;
+          context.lineWidth = ring === 0 ? 1.6 : 0.8;
+          context.stroke();
         }
       }
+      context.globalCompositeOperation = 'source-over';
+      frame = ripples.length ? requestAnimationFrame(draw) : 0;
+    };
 
-      vec2 distortedUV = vUv + vec2(wave);
-      vec4 color = texture2D(uVideoTexture, distortedUV);
-      gl_FragColor = color;
-    }
-  `
-);
-
-extend({ FullScreenRippleShader });
-
-function RippleMesh() {
-  const materialRef = useRef<any>(null);
-  const videoTexture = useVideoTexture('/videos/hero-video.mp4', {
-    muted: true,
-    loop: true,
-    autoPlay: true,
-    playsInline: true,
-  });
-  const [aspect, setAspect] = useState(window.innerWidth / window.innerHeight);
-
-  videoTexture.minFilter = THREE.LinearFilter;
-  videoTexture.magFilter = THREE.LinearFilter;
-  videoTexture.playbackRate = 0.4;
-
-  useEffect(() => {
-    const handleResize = () => {
-      const newAspect = window.innerWidth / window.innerHeight;
-      setAspect(newAspect);
-      if (materialRef.current) {
-        materialRef.current.uAspect = newAspect;
+    const addRipple = (x: number, y: number, strength = 1) => {
+      if (motion.matches || !visible || document.hidden) return;
+      ripples.push({ x, y, born: performance.now(), strength });
+      if (ripples.length > 14) ripples.shift();
+      if (!frame) frame = requestAnimationFrame(draw);
+    };
+    const onPointerMove = (event: PointerEvent) => {
+      if (event.pointerType === 'touch' || performance.now() - lastMove < 105) return;
+      lastMove = performance.now();
+      const bounds = hero.getBoundingClientRect();
+      addRipple(event.clientX - bounds.left, event.clientY - bounds.top, 0.7);
+    };
+    const onPointerDown = (event: PointerEvent) => {
+      const bounds = hero.getBoundingClientRect();
+      addRipple(event.clientX - bounds.left, event.clientY - bounds.top, 1.25);
+    };
+    const onMotionChange = () => {
+      if (motion.matches) {
+        ripples.length = 0;
+        if (frame) cancelAnimationFrame(frame);
+        frame = 0;
+        context.clearRect(0, 0, width, height);
+        videoRef.current?.pause();
+      } else if (visible && !document.hidden) {
+        void videoRef.current?.play().catch(() => {});
       }
     };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  useEffect(() => {
-    const handleInteraction = (e: PointerEvent) => {
-      if (materialRef.current) {
-        materialRef.current.uMouse.set(
-          e.clientX / window.innerWidth,
-          1.0 - e.clientY / window.innerHeight
-        );
-        materialRef.current.uRippleStartTime = performance.now() * 0.001;
+    const onVisibilityChange = () => {
+      if (document.hidden) {
+        videoRef.current?.pause();
+        if (frame) cancelAnimationFrame(frame);
+        frame = 0;
+        ripples.length = 0;
+        context.clearRect(0, 0, width, height);
+      } else if (visible && !motion.matches) {
+        void videoRef.current?.play().catch(() => {});
       }
     };
-    window.addEventListener('pointermove', handleInteraction);
-    return () => window.removeEventListener('pointermove', handleInteraction);
+    const observer = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      if (visible && !motion.matches && !document.hidden) void videoRef.current?.play().catch(() => {});
+      else videoRef.current?.pause();
+      if (!visible && frame) {
+        cancelAnimationFrame(frame);
+        frame = 0;
+        ripples.length = 0;
+        context.clearRect(0, 0, width, height);
+      }
+    });
+    const resizeObserver = new ResizeObserver(resize);
+    resize();
+    resizeObserver.observe(hero);
+    observer.observe(hero);
+    hero.addEventListener('pointermove', onPointerMove);
+    hero.addEventListener('pointerdown', onPointerDown);
+    motion.addEventListener('change', onMotionChange);
+    document.addEventListener('visibilitychange', onVisibilityChange);
+    onMotionChange();
+    return () => {
+      if (frame) cancelAnimationFrame(frame);
+      resizeObserver.disconnect();
+      observer.disconnect();
+      hero.removeEventListener('pointermove', onPointerMove);
+      hero.removeEventListener('pointerdown', onPointerDown);
+      motion.removeEventListener('change', onMotionChange);
+      document.removeEventListener('visibilitychange', onVisibilityChange);
+    };
   }, []);
 
-  useFrame((state) => {
-    if (materialRef.current) {
-      materialRef.current.uTime = state.clock.getElapsedTime();
-    }
-  });
-
   return (
-    <mesh>
-      <planeGeometry args={[16, 9, 1, 1]} />
-      <fullScreenRippleShader
-        ref={materialRef}
-        uVideoTexture={videoTexture}
-        uAspect={aspect}
-      />
-    </mesh>
-  );
-}
-
-export default function Hero() {
-  return (
-    <section id="home" className="hero" style={{ position: 'relative', overflow: 'hidden' }}>
-      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0 }}>
-        <Canvas
-          camera={{ position: [0, 0, 5], fov: 60 }}
-          gl={{ alpha: true, antialias: true }}
-          dpr={[1, 2]}
-          style={{ width: '100%', height: '100%' }}
-        >
-          <color attach="background" args={['#0a2540']} />
-          <RippleMesh />
-        </Canvas>
+    <section id="home" className="dive-hero" ref={heroRef} aria-labelledby="hero-title">
+      <div className="dive-hero__media" aria-hidden="true">
+        <video ref={videoRef} autoPlay muted loop playsInline preload="metadata" poster="/images/gallery6.jpg">
+          <source src="/videos/hero-video.mp4" type="video/mp4" />
+        </video>
       </div>
-      <div style={{
-        position: 'absolute',
-        top: 0, left: 0, right: 0, bottom: 0,
-        background: 'linear-gradient(180deg, rgba(10,37,64,0.4) 0%, rgba(0,80,147,0.3) 40%, rgba(10,37,64,0.7) 100%)',
-        zIndex: 1,
-      }} />
-      <div className="hero-content" style={{ position: 'relative', zIndex: 2 }}>
-        <span className="hero-badge">PADI 5-Star Dive Center</span>
-        <h1 className="hero-title">Discover the Underwater Paradise</h1>
-        <p className="hero-subtitle">
-          Explore crystal-clear waters, vibrant coral reefs, and marine life at Havelock Island. Your adventure starts here.
-        </p>
-        <div className="hero-buttons">
-          <a href="#courses" className="btn btn-primary">Explore Courses</a>
-          <a href="#contact" className="btn btn-outline" style={{ backgroundColor: 'rgba(255,255,255,0.15)', color: '#fff', border: '2px solid rgba(255,255,255,0.3)' }}>
-            Book a Dive
-          </a>
+      <div className="dive-hero__shade" aria-hidden="true" />
+      <canvas ref={canvasRef} className="dive-hero__ripples" aria-hidden="true" data-testid="hero-ripples" />
+      <div className="dive-hero__content container">
+        <span className="dive-hero__eyebrow"><span /> {location}</span>
+        <h1 id="hero-title" aria-label={`${line1} ${line2}`}><span className="hero-line" aria-hidden="true"><span className="hero-line__inner">{line1}</span></span><span className="hero-line" aria-hidden="true"><em className="hero-line__inner">{line2}</em></span></h1>
+        <p>{description}</p>
+        <div className="dive-hero__actions">
+          <a className="dive-hero__primary" href="#activities">Explore experiences <span aria-hidden="true">↗</span></a>
+          <a className="dive-hero__secondary" href="#contact">Talk to our team <span aria-hidden="true">→</span></a>
         </div>
       </div>
-      <div className="hero-image" />
+      <div className="dive-hero__bottom container" aria-hidden="true">
+        <span>INDIA · 12.03° N / 92.97° E</span>
+        <span>SCROLL TO EXPLORE <span className="dive-hero__scroll-line" /></span>
+      </div>
     </section>
   );
 }

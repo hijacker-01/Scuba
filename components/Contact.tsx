@@ -1,83 +1,18 @@
 'use client';
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 
-export default function Contact() {
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 3000);
-  };
-
-  return (
-    <section id="contact" className="contact">
-      <div className="container">
-        <div className="contact-grid">
-          <div className="contact-info">
-            <h3>Get In Touch</h3>
-            <p>
-              Have questions about our courses or want to book a dive? Reach out to us and our team will get back to you within 24 hours.
-            </p>
-            <div className="contact-detail">
-              <div className="contact-detail-icon"><i className="fas fa-map-marker-alt"></i></div>
-              <div className="contact-detail-text">
-                <h4>Location</h4>
-                <p>Havelock Island, South Andaman, Andaman & Nicobar Islands</p>
-              </div>
-            </div>
-            <div className="contact-detail">
-              <div className="contact-detail-icon"><i className="fas fa-phone-alt"></i></div>
-              <div className="contact-detail-text">
-                <h4>Phone</h4>
-                <p>+91 98765 43210</p>
-              </div>
-            </div>
-            <div className="contact-detail">
-              <div className="contact-detail-icon"><i className="fas fa-envelope"></i></div>
-              <div className="contact-detail-text">
-                <h4>Email</h4>
-                <p>info@havelockdiveclub.com</p>
-              </div>
-            </div>
-          </div>
-          <form className="contact-form" onSubmit={handleSubmit}>
-            {submitted && (
-              <div style={{ padding: '12px', background: '#d4edda', color: '#155724', borderRadius: '8px', marginBottom: '16px', fontSize: '0.9rem' }}>
-                Message sent successfully! We will get back to you soon.
-              </div>
-            )}
-            <div className="form-group">
-              <label>Full Name</label>
-              <input type="text" placeholder="Your Name" required />
-            </div>
-            <div className="form-group">
-              <label>Email</label>
-              <input type="email" placeholder="your@email.com" required />
-            </div>
-            <div className="form-group">
-              <label>Phone</label>
-              <input type="tel" placeholder="+91XXXXXXXXXX" />
-            </div>
-            <div className="form-group">
-              <label>Service</label>
-              <select>
-                <option value="">Select a course</option>
-                <option>Open Water Diver</option>
-                <option>Advanced Open Water</option>
-                <option>Rescue Diver</option>
-                <option>Dive Master</option>
-                <option>Group Booking</option>
-              </select>
-            </div>
-            <div className="form-group">
-              <label>Message</label>
-              <textarea placeholder="Tell us about your plans..." required />
-            </div>
-            <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>Send Message</button>
-          </form>
-        </div>
-      </div>
-    </section>
-  );
+export default function Contact({ phone = '+919434290393', alternatePhone = '+919679572772', location = 'Havelock Island, Andaman Islands' }: { phone?: string; alternatePhone?: string; location?: string }) {
+  const [state, setState] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
+  async function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault(); setState('sending');
+    const form = event.currentTarget;
+    const values = Object.fromEntries(new FormData(form).entries());
+    try {
+      const result = await fetch('/api/enquiries', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(values) });
+      if (!result.ok) throw new Error('Could not send enquiry');
+      form.reset(); setState('sent');
+    } catch { setState('error'); }
+  }
+  return <section id="contact" className="section contact-section"><div className="container two-column"><div><h2>Questions about diving or courses?</h2><p>Ask our team about diving experiences, course options, and available dates.</p><p><a href={`tel:${phone}`}>{phone}</a> · <a href={`tel:${alternatePhone}`}>{alternatePhone}</a></p><p>{location}</p></div><form onSubmit={submit} className="card form-stack"><label>Full name<input name="name" required minLength={2} maxLength={100} /></label><label>Email<input name="email" type="email" required /></label><label>Phone<input name="phone" type="tel" maxLength={20} /></label><label>Interested in<select name="service" required><option value="Diving">Diving</option><option value="Courses">Courses</option></select></label><label>Message<textarea name="message" required minLength={5} maxLength={2000} /></label><button className="btn btn-primary" disabled={state === 'sending'}>{state === 'sending' ? 'Sending…' : 'Send enquiry'}</button><p role="status">{state === 'sent' ? 'Your enquiry was saved. We will be in touch.' : state === 'error' ? 'Could not save your enquiry. Please call or try again.' : ''}</p></form></div></section>;
 }
+

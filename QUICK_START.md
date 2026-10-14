@@ -1,3 +1,5 @@
+> Historical guide: this predates the current booking implementation. Use [README.md](README.md) for setup, routes, tests, and launch requirements.
+
 # ⚡ Quick Start Guide - 5 Minutes to Lift-off 🚀
 
 ## Step 1: Install Dependencies (1 min)
