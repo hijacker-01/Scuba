@@ -127,18 +127,14 @@ describe('owner management and reliability', () => {
     expect((await db.collection('notification_jobs').findOne({ subject: /cancelled/ }))?.text).toContain('does not confirm a completed refund');
     expect((await db.collection('slots').findOne({ _id: newSlot }))?.reserved).toBe(0);
   });
-  it('requires single-use emailed recovery tokens and never reveals a booking on mismatched details', async () => {
+  it('disables legacy recovery without changing booking records or sending recovery emails', async () => {
     const reference = '11111111-1111-4111-8111-111111111111';
     await db.collection('bookings').insertOne({ reference, idempotencyKey: 'recover-key', email: 'diver@example.com' });
     const { POST } = await import('../app/api/bookings/recover/route');
-    const mismatch = await POST(request({ action: 'request', reference, email: 'other@example.com' }));
-    expect(mismatch.status).toBe(200); expect(await db.collection('booking_recovery').countDocuments()).toBe(0);
-    expect((await POST(request({ action: 'request', reference, email: 'diver@example.com' }))).status).toBe(200);
-    const job = await db.collection('notification_jobs').findOne({ subject: /Recover your/ });
-    const token = job!.text.match(/recover#([a-f\d]{64})/)[1];
-    expect((await db.collection('booking_recovery').findOne({}))?.tokenHash).not.toBe(token);
-    const redeemed = await POST(request({ action: 'redeem', token })); expect(redeemed.status).toBe(200); expect(redeemed.headers.get('set-cookie')).toContain('HttpOnly');
-    expect((await POST(request({ action: 'redeem', token }))).status).toBe(401);
+    expect((await POST(request({ action: 'request', reference, email: 'diver@example.com' }))).status).toBe(410);
+    expect(await db.collection('booking_recovery').countDocuments()).toBe(0);
+    expect(await db.collection('notification_jobs').countDocuments({ subject: /Recover your/ })).toBe(0);
+    expect(await db.collection('bookings').countDocuments({ reference })).toBe(1);
   });
 });
 

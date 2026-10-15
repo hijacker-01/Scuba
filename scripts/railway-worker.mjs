@@ -20,4 +20,4 @@ async function loop(path, interval) {
     try { await delay(Math.max(1000, interval - (Date.now() - started)), undefined, { signal: controller.signal }); } catch { break; }
   }
 }
-await Promise.all([loop('/api/internal/notifications', 60000), loop('/api/internal/reconcile', 300000)]);
+await loop('/api/internal/notifications', 60000);

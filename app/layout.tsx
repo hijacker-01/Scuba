@@ -8,7 +8,7 @@ export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: 'Havelock Dive Club | Scuba Diving in Andaman',
-  description: 'Explore diving activities and courses on Havelock Island. Browse departures and contact Havelock Dive Club.',
+  description: 'Explore diving activities and courses on Havelock Island. Explore experiences and contact Havelock Dive Club to arrange your visit.',
 };
 
 export default async function RootLayout({
