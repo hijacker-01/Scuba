@@ -13,6 +13,14 @@ try {
   const object = `havelock-backups/${new Date().toISOString().replace(/[:.]/g, '-')}-${randomUUID()}.hdcbk`;
   await uploadVerified(s3, process.env.BACKUP_BUCKET, object, encrypt(dump.bytes, key));
   console.log(JSON.stringify({ event: 'backup_verified', object, collections: dump.collections, records: dump.records, at: new Date().toISOString() }));
+  if (process.argv.includes('--download-link')) {
+    try {
+      const { createDownloadLink } = await import('./download-link.mjs');
+      console.log(JSON.stringify(await createDownloadLink(s3, process.env.BACKUP_BUCKET, object)));
+    } catch {
+      console.error(JSON.stringify({ event: 'download_link_failed', message: 'Backup is verified, but its temporary download link could not be generated.' }));
+    }
+  }
 } catch {
   // Never log provider or database errors, which may contain credentials or customer data.
   console.error(JSON.stringify({ event: 'backup_failed', message: 'Check private backup configuration, storage permissions, database access and the 50 MiB limit.' }));

@@ -5,10 +5,12 @@
   "scripts": {
     "start": "node backup.mjs",
     "verify": "node verify.mjs",
-    "test": "node --test test.mjs"
+    "download-link": "node download-link.mjs",
+    "test": "node --test test.mjs download-link.test.mjs"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.0.0",
+    "@aws-sdk/s3-request-presigner": "^3.1152.0",
     "mongodb": "^6.20.0"
   },
   "engines": {

@@ -31,6 +31,12 @@ No existing backups are overwritten or automatically deleted. Review storage gro
 
 ## Restore rehearsal of a hosted backup
 
+### Download an encrypted backup
+
+Run `node download-link.mjs` within the deployed backup service with its existing bucket variables. It selects the latest dated `.hdcbk` object across all listing pages, checks its backup metadata and prints `backup_download_link` with a `url` valid for 10 minutes. To choose an older backup, set `BACKUP_OBJECT_KEY` to its exact object name. This command needs bucket list/read permission, but no MongoDB connection or encryption key. Treat the URL as temporary access to the encrypted file: anyone with the link can download it until expiration. It does not make the bucket public or disclose the decryption key.
+
+For Railway cron services without an interactive shell, change the Start Command to `node backup.mjs --download-link` and use **Run now**. This preserves the normal backup operation, and prints a temporary download URL after `backup_verified`. Copy only the `url` value, without JSON quotes, into the browser. The signed response requests a file attachment. Restore the normal `node backup.mjs` command afterward to stop emitting links on future scheduled backups. A link failure does not turn a successfully verified backup into a failed backup.
+
 Use a NEW isolated MongoDB service with no application, email worker or production data attached. Reuse the backup service image in a temporary verification job, keep its bucket credentials and key, and add:
 
 - `RESTORE_TEST_URI`: isolated MongoDB connection URI. Do not reference production MongoDB.
