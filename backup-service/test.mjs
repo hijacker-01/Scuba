@@ -2,7 +2,8 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { BSON } from 'mongodb';
 import { gzipSync } from 'node:zlib';
-import { encryptionKey, encrypt, decrypt } from './crypto.mjs';
+import { encryptionKey, encrypt, decrypt, encryptBackup, decryptBackup } from './crypto.mjs';
+import { rotatedKeys, recoveryFile, parseRecoveryFile, readKeys } from './keyring.mjs';
 import { unpack, restoreAndVerify } from './snapshot.mjs';
 import { uploadVerified } from './storage.mjs';
 const key = encryptionKey('ab'.repeat(32));
@@ -40,4 +41,20 @@ test('storage success requires downloading the exact uploaded bytes', async () =
 test('a corrupted readback fails the backup job', async () => {
   const fake = { send: async command => command.constructor.name === 'PutObjectCommand' ? {} : { Body: { transformToByteArray: async () => Buffer.from('damaged') } } };
   await assert.rejects(uploadVerified(fake, 'private', 'key', Buffer.from('encrypted')), /verification failed/);
+});
+test('two rotations preserve independently recoverable legacy and versioned backups', () => {
+  const bytes = Buffer.from('recovery-test'), first = rotatedKeys(null, key), second = rotatedKeys(first, key);
+  const keys = parseRecoveryFile(recoveryFile(second, key));
+  assert.equal(keys.length, 3);
+  for (const candidate of keys) assert.deepEqual(decryptBackup(encryptBackup(bytes, candidate), keys), bytes);
+  assert.deepEqual(decryptBackup(encrypt(bytes, key), keys), bytes);
+  assert.throws(() => readKeys(second, encryptionKey('ef'.repeat(32))));
+});
+test('versioned backup authenticates its identifier, payload and matching key', () => {
+  const bytes = encryptBackup(Buffer.from('private'), key);
+  for (const index of [8, 24, 36, bytes.length - 1]) {
+    const damaged = Buffer.from(bytes); damaged[index] ^= 1;
+    assert.throws(() => decryptBackup(damaged, [key]));
+  }
+  assert.throws(() => decryptBackup(bytes, [encryptionKey('cd'.repeat(32))]));
 });

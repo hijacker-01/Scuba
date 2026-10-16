@@ -1,5 +1,7 @@
 # Havelock encrypted database backups
 
+Owner password changes and future backup-key rotation are documented in `docs/handover/ACCOUNT-SECURITY.md` at the repository root. Key rotation requires updating both the website and this backup service. Retain the original Railway encryption key as the wrapping key, and keep an exported recovery-key file outside Railway. The dashboard never rewrites old backup objects.
+
 Status: code prepared and tested locally. Railway bucket upload, daily scheduling and a restore of a real hosted backup must still be verified.
 
 This standalone service backs up the single application database with a MongoDB snapshot transaction, preserves BSON values and indexes, compresses and encrypts the result using AES-256-GCM, uploads it to a private S3-compatible bucket, and downloads the object to verify its hash. It does not write application data. It runs once and exits. Only ordinary collections are supported, with a 50 MiB serialized document limit. It fails instead of silently skipping unsupported collections or schema changes. Use streaming MongoDB tools for larger or more complex databases.

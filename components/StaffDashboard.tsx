@@ -2,6 +2,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import OwnerControls, { Product } from './OwnerControls';
+import AccountSecurity from './AccountSecurity';
 import type { ClubSettings } from '@/lib/settings';
 
 type Booking = { reference: string; name: string; email: string; phone: string; productSlug: string; productName: string; startAt: string; participants: number; totalPaise: number; refundedPaise: number; status: string; paymentId?: string; orderId?: string; termsAcceptedAt?: string; terms: string; lastReconcileError?: string };
@@ -40,6 +41,7 @@ export default function StaffDashboard() {
   async function logout() { await fetch('/api/admin/logout', { method: 'POST' }); router.push('/admin/login'); }
   return <div className="container staff"><div className="staff-heading"><div><p className="section-kicker">CLUB MANAGEMENT</p><h1>{data?.role === 'owner' ? 'Owner dashboard' : 'Staff dashboard'}</h1>{data && <p>{data.email}</p>}</div><button onClick={() => void logout()}>Sign out</button></div><p role="status">{message}</p>
   {data && <>
+    <AccountSecurity owner={data.role === 'owner'} />
     <div className="card"><strong>{data.pagination.enquiryCount}</strong><p>Customer enquiries</p></div>
     <h2>Enquiries</h2><div className="table-wrap"><table><thead><tr><th>Customer</th><th>Service</th><th>Message</th><th>Status</th></tr></thead><tbody>{data.enquiries.map(e => <tr key={e._id}><td>{e.name}<br />{e.email}<br />{e.phone}</td><td>{e.service}</td><td>{e.message}</td><td><select disabled={busy} value={e.status} onChange={event => void send(`/api/admin/enquiries/${e._id}`, 'PATCH', { status: event.target.value })}><option value="new">New</option><option value="contacted">Contacted</option><option value="closed">Closed</option></select></td></tr>)}</tbody></table></div><Pagination page={enquiryPage} total={data.pagination.enquiryCount} limit={data.pagination.limit} change={setEnquiryPage} />
     {data.role === 'owner' && <OwnerControls products={data.products} settings={data.settings} accounts={data.accounts} send={send} busy={busy} />}

@@ -7,7 +7,7 @@ export function storage() {
   return new S3Client({ endpoint: endpoint.href, region: process.env.AWS_REGION || 'auto', forcePathStyle: process.env.BACKUP_PATH_STYLE === 'true', maxAttempts: 3, requestChecksumCalculation: 'WHEN_REQUIRED', responseChecksumValidation: 'WHEN_REQUIRED', credentials: { accessKeyId: process.env.AWS_ACCESS_KEY_ID, secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY } });
 }
 export async function uploadVerified(s3, bucket, key, bytes) {
-  await s3.send(new PutObjectCommand({ Bucket: bucket, Key: key, Body: bytes, ContentType: 'application/octet-stream', Metadata: { sha256: hash(bytes), format: 'hdcbk001' } }));
+  await s3.send(new PutObjectCommand({ Bucket: bucket, Key: key, Body: bytes, ContentType: 'application/octet-stream', Metadata: { sha256: hash(bytes), format: bytes.subarray(0, 8).toString() === 'HDCBK002' ? 'hdcbk002' : 'hdcbk001' } }));
   const response = await s3.send(new GetObjectCommand({ Bucket: bucket, Key: key }));
   const stored = Buffer.from(await response.Body.transformToByteArray());
   if (hash(stored) !== hash(bytes)) throw new Error('Uploaded backup verification failed');

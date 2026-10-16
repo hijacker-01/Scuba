@@ -19,7 +19,7 @@ export async function createDownloadLink(s3, bucket, object) {
   }
   if (!backupKey.test(object || '')) throw new Error('No valid backup found');
   const head = await s3.send(new HeadObjectCommand({ Bucket: bucket, Key: object }));
-  if (head.Metadata?.format !== 'hdcbk001' || !head.ContentLength) throw new Error('Invalid backup object');
+  if (!['hdcbk001', 'hdcbk002'].includes(head.Metadata?.format) || !head.ContentLength) throw new Error('Invalid backup object');
   const expiresIn = 600;
   const url = await getSignedUrl(s3, new GetObjectCommand({
     Bucket: bucket, Key: object,

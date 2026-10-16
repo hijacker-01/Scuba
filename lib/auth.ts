@@ -13,7 +13,7 @@ export async function requireStaff() {
   if (!session) throw new ApiError(401, 'UNAUTHORIZED', 'Staff session expired');
   const staff = await db.collection('staff').findOne({ _id: session.staffId, active: true });
   if (!staff || (staff.sessionVersion || 0) !== (session.sessionVersion || 0)) throw new ApiError(401, 'UNAUTHORIZED', 'Account access has changed. Sign in again.');
-  return { ...session, staffId: staff._id, role: staff.role || 'staff', email: staff.email };
+  return { ...session, staffId: staff._id, sessionVersion: staff.sessionVersion || 0, role: staff.role || 'staff', email: staff.email };
 }
 export async function requireOwner() {
   const staff = await requireStaff();
